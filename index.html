@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incorporation Dossier — Strive Pulse Pvt. Ltd.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B2942;
+    --navy-2:#243352;
+    --parchment:#F3EEE2;
+    --parchment-2:#EAE3D2;
+    --ink:#2A2620;
+    --ink-soft:#5B5548;
+    --seal:#8B2635;
+    --seal-soft:#F4E4E1;
+    --brass:#A67C27;
+    --sage:#4C6B4F;
+    --sage-soft:#E7EEE4;
+    --line:#D9CFB8;
+    --white:#FFFDF8;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--navy);
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:var(--seal); }
+
+  /* ---------- Layout shells ---------- */
+  .wrap{ max-width:980px; margin:0 auto; padding:0 28px; }
+  section{ padding:64px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  /* ---------- Hero / Cover ---------- */
+  .cover{
+    background:
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+    color:var(--parchment);
+    padding:0;
+    border-bottom:6px solid var(--brass);
+    position:relative;
+    overflow:hidden;
+  }
+  .cover-inner{
+    max-width:980px; margin:0 auto; padding:72px 28px 56px;
+    position:relative; z-index:2;
+  }
+  .file-tab{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:7px 14px;
+    border-radius:999px;
+    color:#E8E1CC;
+    margin-bottom:28px;
+  }
+  .file-tab .dot{ width:7px; height:7px; border-radius:50%; background:#C7A93B; box-shadow:0 0 0 3px rgba(199,169,59,0.25); }
+  .cover h1{
+    color:var(--white);
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.05;
+    margin:0 0 18px;
+    max-width:15ch;
+  }
+  .cover p.lede{
+    color:#C9CCD9;
+    font-size:18px;
+    max-width:52ch;
+    margin:0 0 36px;
+  }
+  .seal{
+    position:absolute; right:-40px; top:40px;
+    width:220px; height:220px;
+    border:2px solid rgba(198,167,68,0.55);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transform:rotate(-14deg);
+    opacity:0.9;
+  }
+  .seal::before{
+    content:'';
+    position:absolute; inset:10px;
+    border:1px solid rgba(198,167,68,0.4);
+    border-radius:50%;
+  }
+  .seal-text{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.28em; text-transform:uppercase;
+    color:#C6A744; text-align:center; line-height:1.9;
+  }
+  .cover-meta{
+    display:flex; gap:36px; flex-wrap:wrap;
+    margin-top:8px; padding-top:28px;
+    border-top:1px solid rgba(255,255,255,0.15);
+  }
+  .cover-meta div{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:#9FA6BC; letter-spacing:0.06em; }
+  .cover-meta strong{ display:block; color:var(--white); font-size:15px; margin-top:4px; font-family:'Source Sans 3',sans-serif; letter-spacing:0; }
+
+  /* ---------- Section labels ---------- */
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--seal);
+    margin-bottom:10px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:24px; height:1px; background:var(--seal); }
+  h2.title{ font-size:32px; margin:0 0 12px; }
+  .section-intro{ color:var(--ink-soft); max-width:62ch; margin:0 0 40px; font-size:16px; }
+
+  /* ---------- Stepper (genuinely sequential process) ---------- */
+  .stepper{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:0;
+    counter-reset:step;
+    border:1px solid var(--line);
+    background:var(--white);
+  }
+  .step{
+    padding:24px 18px;
+    border-right:1px solid var(--line);
+    position:relative;
+  }
+  .step:last-child{ border-right:none; }
+  .step-num{
+    font-family:'Fraunces', serif;
+    font-size:26px;
+    color:var(--brass);
+    margin-bottom:10px;
+  }
+  .step h3{ font-size:15px; margin:0 0 6px; }
+  .step p{ font-size:13px; color:var(--ink-soft); margin:0; }
+  @media(max-width:860px){
+    .stepper{ grid-template-columns:1fr 1fr; }
+    .step{ border-bottom:1px solid var(--line); }
+  }
+  @media(max-width:520px){
+    .stepper{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Document ledger (accordion + checklist) ---------- */
+  .ledger{ border:1px solid var(--line); background:var(--white); }
+  .category{ border-bottom:1px solid var(--line); }
+  .category:last-child{ border-bottom:none; }
+  .category-head{
+    display:flex; align-items:center; justify-content:space-between;
+    width:100%; text-align:left; background:none; border:none;
+    padding:20px 24px; cursor:pointer;
+    font-family:'Fraunces', serif; font-size:19px; color:var(--navy);
+  }
+  .category-head .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em;
+    color:var(--seal); background:var(--seal-soft); padding:4px 9px; border-radius:2px;
+    margin-right:12px; text-transform:uppercase;
+  }
+  .category-head .chev{ font-size:18px; color:var(--brass); transition:transform 0.25s ease; }
+  .category.open .chev{ transform:rotate(45deg); }
+  .category-body{
+    max-height:0; overflow:hidden; transition:max-height 0.3s ease;
+  }
+  .category.open .category-body{ max-height:2000px; }
+  .doc-row{
+    display:grid; grid-template-columns:28px 1fr 2fr;
+    gap:16px; align-items:start;
+    padding:14px 24px; border-top:1px solid var(--line);
+  }
+  .doc-row:first-child{ border-top:1px solid var(--line); }
+  .doc-check{
+    width:20px; height:20px; border:1.5px solid var(--brass);
+    border-radius:3px; margin-top:2px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; background:var(--white);
+  }
+  .doc-check.checked{ background:var(--sage); border-color:var(--sage); }
+  .doc-check.checked::after{ content:'✓'; color:white; font-size:13px; font-weight:700; }
+  .doc-name{ font-weight:600; color:var(--ink); font-size:15px; }
+  .doc-name .code{ display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--brass); margin-top:3px; letter-spacing:0.04em; }
+  .doc-note{ font-size:14px; color:var(--ink-soft); }
+  .doc-row.done .doc-name{ color:var(--sage); }
+  .doc-row.done .doc-note{ text-decoration:line-through; text-decoration-color:var(--line); }
+
+  /* ---------- Progress ---------- */
+  .progress-bar{
+    height:6px; background:var(--parchment-2); border:1px solid var(--line);
+    margin:28px 0 8px; overflow:hidden;
+  }
+  .progress-fill{ height:100%; background:var(--sage); width:0%; transition:width 0.4s ease; }
+  .progress-label{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); letter-spacing:0.04em; }
+
+  /* ---------- How-to cards ---------- */
+  .howto{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  .howto-card{ background:var(--white); padding:26px; }
+  .howto-card h3{ font-size:17px; margin:0 0 10px; display:flex; align-items:center; gap:10px; }
+  .howto-card h3 .n{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--brass); border:1px solid var(--brass); width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .howto-card p{ font-size:14.5px; color:var(--ink-soft); margin:0; }
+  .howto-card .badge{ display:inline-block; margin-top:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--seal); background:var(--seal-soft); padding:3px 8px; }
+  @media(max-width:700px){ .howto{ grid-template-columns:1fr; } }
+
+  /* ---------- Contact / escalation table ---------- */
+  table.contacts{ width:100%; border-collapse:collapse; background:var(--white); border:1px solid var(--line); }
+  table.contacts th{
+    text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--ink-soft); background:var(--parchment-2);
+    padding:12px 16px; border-bottom:1px solid var(--line);
+  }
+  table.contacts td{ padding:16px; border-bottom:1px solid var(--line); font-size:14.5px; vertical-align:top; }
+  table.contacts tr:last-child td{ border-bottom:none; }
+  table.contacts .issue{ font-weight:600; color:var(--navy); }
+  table.contacts .who{ color:var(--seal); font-weight:600; }
+  table.contacts .detail{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); display:block; margin-top:3px; }
+
+  /* ---------- Callout ---------- */
+  .callout{
+    border-left:3px solid var(--brass);
+    background:var(--white);
+    padding:18px 22px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin-top:28px;
+  }
+  .callout strong{ color:var(--navy); }
+
+  /* ---------- Footer ---------- */
+  footer{ background:var(--navy); color:#9FA6BC; padding:36px 0; }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  footer p{ margin:0; font-size:13px; }
+  footer .stamp-mini{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; color:#7C8299; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+  :focus-visible{ outline:2px solid var(--seal); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="file-tab"><span class="dot"></span> Incorporation Dossier · Pre-Registration</div>
+    <h1>Strive Pulse Pvt. Ltd.</h1>
+    <p class="lede">Everything needed to file for private limited company registration in India — the documents, the sequence, and exactly who to contact if a step gets stuck.</p>
+    <div class="cover-meta">
+      <div>Proposed entity<strong>Strive Pulse Pvt. Ltd.</strong></div>
+      <div>Registered office (proposed)<strong>Surat, Gujarat</strong></div>
+      <div>Filing route<strong>MCA SPICe+ (INC-32)</strong></div>
+      <div>Founders<strong>3 — Yash, Dhruv, Nirali</strong></div>
+    </div>
+  </div>
+  <div class="seal"><div class="seal-text">Under<br>Preparation<br>— MCA —</div></div>
+</div>
+
+<div class="wrap">
+
+  <section id="process">
+    <div class="eyebrow">Stage 1 of 3</div>
+    <h2 class="title">The process, A to Z</h2>
+    <p class="section-intro">Registration runs through one integrated MCA form — SPICe+ — but six things have to happen in roughly this order before it can be filed.</p>
+    <div class="stepper">
+      <div class="step"><div class="step-num">01</div><h3>Name & Trademark Check</h3><p>Confirm the name is free on MCA and unregistered on IP India.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Registered Office</h3><p>Decide the address; gather a fresh utility bill, agreement, and NOC.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Digital Signatures</h3><p>Each director obtains a Class 3 DSC via Aadhaar e-KYC.</p></div>
+      <div class="step"><div class="step-num">04</div><h3>Drafting</h3><p>MOA, AOA, DIR-2, and subscriber declarations are prepared.</p></div>
+      <div class="step"><div class="step-num">05</div><h3>Professional Filing</h3><p>A CA/CS certifies and files SPICe+ on the MCA portal.</p></div>
+      <div class="step"><div class="step-num">06</div><h3>Certificate Issued</h3><p>Incorporation Certificate, PAN, TAN, and GSTIN arrive together.</p></div>
+    </div>
+  </section>
+
+  <section id="documents">
+    <div class="eyebrow">Stage 2 of 3</div>
+    <h2 class="title">Documents required</h2>
+    <p class="section-intro">Eighteen items across four categories. Check items off as you gather them — progress is tracked below.</p>
+
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0 of 18 gathered</div>
+
+    <div class="ledger" id="ledger" style="margin-top:28px;">
+
+      <div class="category open">
+        <button class="category-head" onclick="toggleCategory(this)">
+          <span><span class="tag">A</span>Personal — per founder (× 3)</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="category-body">
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">PAN Card</div><div class="doc-note">Already held by all three founders.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Aadhaar Card</div><div class="doc-note">Used for identity and e-KYC verification.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Secondary ID Proof</div><div class="doc-note">Passport, Voter ID, or Driving Licence — any one.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Address Proof</div><div class="doc-note">Bank statement, electricity, or phone bill — must be under 2 months old.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Passport Photograph</div><div class="doc-note">Recent, passport-size, per founder.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Digital Signature Certificate <span class="code">DSC · CLASS 3</span></div><div class="doc-note">Not yet held — obtain via eMudhra, Sify, or NSDL. See Stage 3.</div></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <button class="category-head" onclick="toggleCategory(this)">
+          <span><span class="tag">B</span>Registered office proof</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="category-body">
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Utility Bill</div><div class="doc-note">Electricity, water, gas, or phone — under 2 months old, matching the address exactly.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Rent Agreement / Sale Deed</div><div class="doc-note">Rent agreement if leased, ownership document if owned. A residential address is acceptable.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">No-Objection Certificate <span class="code">NOC</span></div><div class="doc-note">From the property owner — required even with a signed rent agreement.</div></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <button class="category-head" onclick="toggleCategory(this)">
+          <span><span class="tag">C</span>Company-level documents</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="category-body">
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Memorandum of Association <span class="code">e-MOA · INC-33</span></div><div class="doc-note">Name, objects, liability, and subscription clauses.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Articles of Association <span class="code">e-AOA · INC-34</span></div><div class="doc-note">Internal governance rules — share transfer, board procedure, quorum.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Subscriber Declaration <span class="code">INC-9</span></div><div class="doc-note">Auto-generated in SPICe+, signed with each founder's DSC.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Director Consent <span class="code">DIR-2</span></div><div class="doc-note">Each proposed director's written consent to act as director.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Two Proposed Company Names</div><div class="doc-note">Checked against MCA and IP India before filing — see Stage 1.</div></div>
+        </div>
+      </div>
+
+      <div class="category">
+        <button class="category-head" onclick="toggleCategory(this)">
+          <span><span class="tag">D</span>Certification & linked filings</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="category-body">
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">Professional Certification</div><div class="doc-note">A practicing CA, CS, CMA, or Advocate must digitally certify the filing — not self-certifiable.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">MCA Name Search</div><div class="doc-note">Free — confirms the proposed name isn't already taken.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">IP India Trademark Search</div><div class="doc-note">Free — confirms the name isn't already a registered trademark.</div></div>
+          <div class="doc-row"><div class="doc-check" onclick="toggleCheck(this)"></div><div class="doc-name">AGILE-PRO-S</div><div class="doc-note">Bundled into SPICe+ — handles GSTIN, EPFO, ESIC, and bank account request together.</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout"><strong>Timeline to expect:</strong> 5–7 working days once every document above is complete and accurate; budget 7–14 working days in practice. Most delays trace back to a mismatched address on a bill, not the core paperwork.</div>
+  </section>
+
+  <section id="howto">
+    <div class="eyebrow">Reference</div>
+    <h2 class="title">Getting the one thing you don't already have</h2>
+    <p class="section-intro">Everything above is either already in hand or drafted for you — except the Digital Signature Certificate, which has to be newly obtained per director.</p>
+    <div class="howto">
+      <div class="howto-card">
+        <h3><span class="n">1</span>Choose a Certifying Authority</h3>
+        <p>eMudhra, Sify, or NSDL are MCA-authorised providers. Any one works — pricing and turnaround are similar across all three.</p>
+      </div>
+      <div class="howto-card">
+        <h3><span class="n">2</span>Complete Aadhaar e-KYC</h3>
+        <p>Done entirely online: a webcam photo plus an Aadhaar OTP. No physical paperwork or in-person visit required.</p>
+      </div>
+      <div class="howto-card">
+        <h3><span class="n">3</span>Receive the DSC</h3>
+        <p>Typically issued within a few hours of successful verification. <span class="badge">₹800 – ₹2,000 per director</span></p>
+      </div>
+      <div class="howto-card">
+        <h3><span class="n">4</span>Repeat for each director</h3>
+        <p>All three founders need their own DSC — it can't be shared, and each is tied to that individual's Aadhaar and PAN.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="eyebrow">Stage 3 of 3</div>
+    <h2 class="title">If something fails, contact this</h2>
+    <p class="section-intro">A working escalation list, not a guess — organized by what's actually gone wrong.</p>
+    <table class="contacts">
+      <thead>
+        <tr><th style="width:26%">If this happens</th><th style="width:20%">Contact</th><th>How to reach them</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="issue">MCA portal error, stuck filing, or SPICe+ rejection</td>
+          <td class="who">MCA21 Helpdesk</td>
+          <td>
+            <span class="detail">Phone: 0120-4832500 / 1800-2023-454</span>
+            <span class="detail">Email: appl.helpdesk@mca.gov.in</span>
+            <span class="detail">Or: mca.gov.in → MCA Services → Complaints → Create Service-Related Complaint</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="issue">Proposed name rejected or flagged as too similar</td>
+          <td class="who">MCA21 Helpdesk</td>
+          <td><span class="detail">Same as above — cite the SRN of your name application when you call.</span></td>
+        </tr>
+        <tr>
+          <td class="issue">Digital Signature Certificate not generating, or e-KYC failing</td>
+          <td class="who">Your Certifying Authority</td>
+          <td><span class="detail">Contact eMudhra / Sify / NSDL support directly through the portal you applied on — each has its own helpdesk.</span></td>
+        </tr>
+        <tr>
+          <td class="issue">Unsure if "Strive Pulse" is trademark-clear</td>
+          <td class="who">IP India / Trademark Registry</td>
+          <td><span class="detail">ipindiaonline.gov.in — or a trademark attorney for a formal clearance opinion.</span></td>
+        </tr>
+        <tr>
+          <td class="issue">MOA/AOA drafting, professional certification, or the filing itself</td>
+          <td class="who">Your engaged CA/CS</td>
+          <td><span class="detail">This step legally requires a practicing professional — engage one in Surat before filing.</span></td>
+        </tr>
+        <tr>
+          <td class="issue">Complaint unresolved after 30 days</td>
+          <td class="who">CPGRAMS</td>
+          <td><span class="detail">pgportal.gov.in — the central government grievance escalation portal.</span></td>
+        </tr>
+        <tr>
+          <td class="issue">Opening the company's current account post-incorporation</td>
+          <td class="who">Chosen bank</td>
+          <td><span class="detail">Business/current account desk — most banks can start this in parallel once the Certificate of Incorporation is issued.</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>Keep a paper trail:</strong> every time you contact a helpdesk, note the date, the ticket/SR number, and who you spoke to. If a complaint sits unresolved, that record is what CPGRAMS asks for at escalation.</div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Prepared for Strive Pulse Pvt. Ltd. — a reference document, not legal advice.</p>
+    <div class="stamp-mini">DOSSIER · REV. 13 JUL 2026</div>
+  </div>
+</footer>
+
+<script>
+  function toggleCategory(btn){
+    btn.parentElement.classList.toggle('open');
+  }
+  function toggleCheck(el){
+    el.classList.toggle('checked');
+    el.parentElement.classList.toggle('done');
+    saveState();
+    updateProgress();
+  }
+  function updateProgress(){
+    var all = document.querySelectorAll('.doc-check');
+    var done = document.querySelectorAll('.doc-check.checked');
+    var pct = all.length ? Math.round((done.length/all.length)*100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = done.length + ' of ' + all.length + ' gathered';
+  }
+  function saveState(){
+    try{
+      var all = document.querySelectorAll('.doc-check');
+      var state = [];
+      all.forEach(function(el){ state.push(el.classList.contains('checked')); });
+      localStorage.setItem('strivepulse_dossier_state', JSON.stringify(state));
+    }catch(e){}
+  }
+  function loadState(){
+    try{
+      var raw = localStorage.getItem('strivepulse_dossier_state');
+      if(!raw) return;
+      var state = JSON.parse(raw);
+      var all = document.querySelectorAll('.doc-check');
+      all.forEach(function(el, i){
+        if(state[i]){
+          el.classList.add('checked');
+          el.parentElement.classList.add('done');
+        }
+      });
+    }catch(e){}
+  }
+  loadState();
+  updateProgress();
+</script>
+
+</body>
+</html>
